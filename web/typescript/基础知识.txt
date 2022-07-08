@@ -1,0 +1,24 @@
+一、基本类型
+1、boolean number string
+2、数组
+    let list:number[] = [1,2,3] 或 let list: Array<number> = [1,2,3]
+3、元组 Tuple
+let x:[string, number]; x = ["hello", 10];
+console.log(x[0])
+4、枚举
+enum color {
+    red,
+    green,
+    blue
+}
+5、any
+let notSure:any = 4;
+notSure = "aaaa";
+notSure = false;
+6、void 函数没有返回值
+7、null undefined
+8、never 表示永不存在的值的类型
+9、Object
+
+二、变量声明
+var let const
