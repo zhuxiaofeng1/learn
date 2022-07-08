@@ -22,3 +22,58 @@ notSure = false;
 
 二、变量声明
 var let const
+区别：
+1、for (var i = 0; i < 10; i++) {
+    setTimeout(function () {
+        console.log(i);
+    }, 100 * i);
+}
+2、for (var i = 0; i < 10; i++) {
+    (function(i) {
+        setTimeout(function() {
+            console.log(i);
+        }, 100 * i)
+    })(i);
+}
+3、for (let i = 0; i < 10; i++) {
+    setTimeout(function() {
+        console.log(i);
+    }, 100 * i)
+}
+4、解构
+(1)解构数组
+let input = [1,2]
+let [first, second] = input;
+console.log(first); // 1
+console.log(second); // 2
+作用于函数参数：
+function f([first, second]:[number, number]) {
+    // ...
+}
+let [first, ...rest] = [1,2,3,4];
+console.log(first); // 1
+console.log(res); // [2,3,4]
+(2)解构对象
+let o = {
+    a: "foo",
+    b: 12,
+    c: false
+}
+let {a, b} = o;
+属性重命名：
+let {a: aName, b: bName} = o;
+指定类型声明：
+let {a, b}:{a: string, b:number} = o;
+(3)解构函数
+type C = {a: string, b?:number}
+function f({a, b}: C) :void {
+    // ...
+}
+
+function f({a="", b=0} = {}) :void {
+    // ...
+}
+
+function f({a, b = 0} = {a: ""}):void {
+    // ...
+}
