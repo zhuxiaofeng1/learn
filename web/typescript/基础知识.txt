@@ -77,3 +77,97 @@ function f({a="", b=0} = {}) :void {
 function f({a, b = 0} = {a: ""}):void {
     // ...
 }
+
+三、接口
+作用：为类型命名或代码定义契约
+eg:
+interface LabelledValue {
+    label: string
+}
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+let myObj = {
+    size: 10,
+    label: "size 10 object"
+}
+printLabel(myObj);
+1、可选属性
+interface SquareConfig {
+    color?:string;
+    width?:number;
+}
+function createSquare(config:SquareConfig):{color:string,area:number} {
+    let newSquare = {
+        color: "white",
+        area: 100
+    };
+    if(config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+let mySquare = createSquare({color: "yellow"})
+可选属性好处：1、可以对可能存在的属性进行预定义；2、可以捕获引用了不存在的属性时的错误。
+
+2、只读属性
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+let p1:Point = {x: 10, y: 20}
+对数组：
+let a: number[] = [1,2,3,4];
+let ro: ReadonlyArray<number> = a;
+直接赋值不可行，但可以用类型断言重写：
+a = ro as number[];
+
+readonly vs const
+readonly描述属性 const描述变量
+
+带任意数量的其他属性：
+interface SquareConfig {
+    color?: string;
+    width?:number;
+    [propName: string]: any;
+}
+
+3、函数类型
+为了使用接口表示函数类型，我们需要给接口定义一个调用签名，它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数都需要名字和类型。
+interface SearchFunc {
+    (source: string, subString: string):boolean;
+}
+这样定义后，我偶们可以像使用其它接口一样使用这个函数类型的接口。
+eg:
+let mySearch: SearchFunc;
+mySearch = function(str: string, subString: string) {
+    let result = source.search(subString);
+    return result > -1;
+}
+
+4、可索引的类型
+可索引类型具有一个索引签名，它描述了对象索引的类型，还有相应的索引返回值类型。
+eg:
+interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+let myArray:ReadonlyStringArray;
+myArray = ["Bob", "Fred"];
+let myStr: string = myArray[0];
+
+5、类类型
+明确的强制一个类去符合某种契约
+interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+}
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+        this.currentTime = d;
+    };
+    constructor(h: number, m: number) {}
+}

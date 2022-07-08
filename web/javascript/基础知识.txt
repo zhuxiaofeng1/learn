@@ -1,0 +1,9 @@
+一、字符串
+1、indexOf()与search()的区别
+(1)indexOf方法
+可返回某个指定字符串值在字符串中首次出现的位置
+语法：str.indexOf(subString, fromIndex);
+(2)search方法
+用于检索字符串中指定的子字符串，或者检索与正则表达式相匹配的子字符串。
+语法：str.search(regexp)
+说明：不执行全局匹配，将忽略标志g，同时忽略regexp的lastIndex属性。（最后一个没咋明白）
