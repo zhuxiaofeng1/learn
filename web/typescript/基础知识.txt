@@ -171,3 +171,106 @@ class Clock implements ClockInterface {
     };
     constructor(h: number, m: number) {}
 }
+
+interface ClockInterface {
+    tick();
+}
+interface ClockConstructor {
+    new (hour: number, minute:number): ClockInterface;
+}
+function createClock(ctor: ClockConstructor, hour: number, minute:number): ClockInterface {
+    return new ctor(hour, minute);
+}
+class DigitalClock implements ClockInterface {
+    constructor(h:number, m:number) {}
+    tick() {
+        console.log("beep beep");
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m:number) {}
+    tick() {
+        console.log("tick tock");
+    }
+}
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+
+6、继承接口
+interface Shape {
+    color: string;
+}
+interface Square extends Shape {
+    sideLength: number;
+}
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+一个接口可以继承多个接口，创建出多个接口的合接口
+interface Shape {
+    color:string;
+}
+interface PenStroke {
+    penWidth: number
+}
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+}
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 5.0;
+
+7、混合类型
+eg: 一个对象可以同时作为函数和对象使用，并带有额外的属性
+interface Counter{
+    (start:number):string;
+    interval:number;
+    reset():void;
+}
+function getCounter():Counter {
+    let counter = <Counter>function (start: number) {};
+    counter.interval = 123;
+    counter.reset = function() {};
+    return counter;
+}
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+
+8、接口继承类
+接口继承类时，会继承成员但不包括实现。
+class Control {
+    private state: any;
+}
+interface SelectableControl extends Control {
+    select(): void;
+}
+class Button extends Control implements SelectableControl {
+    select() {}
+}
+class TextBox extends Control {
+    select() {}
+}
+
+implements和extends的区别
+extends是用来继承类的，表示继承关系；implements是用来实现接口的。
+继承类只能继承一个；实现类可以实现多个。
+继承父类的同时可以重写父类的方法，并且有权限调用父类的非私有方法；实现接口后必须实现接口的所有方法。
+
+四、类
+1、类
+使用类的简单例子
+class Greeter {
+    greeting:string;
+    constructor(message:string) {
+        this.greeting = message;
+    }
+    greet() {
+        return "hello," + this.greeting;
+    }
+}
+let greeter = new Greeter("world");
+
+2、继承
