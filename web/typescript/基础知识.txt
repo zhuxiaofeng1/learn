@@ -274,3 +274,11 @@ class Greeter {
 let greeter = new Greeter("world");
 
 2、继承
+class Animal {
+    move(distanceInMeters: number = 0) {
+        console.log(`Animal moved ${distanceInMeters} m.`);
+    }
+}
+class Dog extends Animal {
+    
+}

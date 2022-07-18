@@ -1,0 +1,98 @@
+一、AngularJS简介
+1、表达式
+{{ expression }}
+2、应用
+Module定义应用，Controller控制应用；
+ng-app指令指明了应用，ng-controller指明了控制器;
+eg:
+<div ng-app="my-app" ng-controller="myController">
+    <div> {{xxx}}</div>
+    ...
+</div>
+<script>
+    var app = anguler.module("myApp", []);
+    app.controller("myController", ($scope) => {
+        $scope.xxx = "";
+    })
+</script>
+二、表达式
+eg:
+<div ng-app="" ng-init="obj={a:1,b:2}">
+    <p>
+        obj属性a: 
+        <span ng-bind="obj.a"></span>
+    </p>
+</div>
+三、指令
+1、常用指令
+ng-app 初始化一个AngularJS应用程序;
+ng-init 初始化应用程序数据；
+ng-module 把元素值绑定到应用程序；
+ng-repeat="x in arr" 循环
+
+2、创建自定义指令
+用.directive函数来添加自定义指令。
+eg:
+<custon-directive></custon-directive>
+<script>
+var app = anguler.module("app", []);
+app.directive("customDirective", () => {
+    return {
+        template: "<h1>custom directive</h1>"
+    }
+})
+</script>
+调用指令的方法：
+（1）元素名
+<custom-directive></custom-directive>
+（2）属性
+<div custom-directive></div>
+（3）类名
+<div class="custom-directive"></div>
+（4）注释
+<!-- directive:custom-directive -->
+限制使用
+添加restrict属性，并设置值"A"，来设置指令只能通过属性的方式来调用。
+restrict值：E--作为元素名使用 A--作为属性使用 C--作为类名使用 M--作为注释使用
+
+四、模型
+1、ng-model指令
+eg:
+<div ng-app="App" ng-controller="appController">
+    name: <input ng-model="name">
+</div>
+<script>
+var app = anguler.module("App", []);
+app.controller("appController", ($scope) => {
+    $scope.name = "kalafa";
+})
+</script>
+2、双向绑定
+eg:
+<div ng-app="App" ng-controller="appController">
+    name: <input ng-model="name">
+    <span>your name is: {{name}}</span>
+</div>
+3、应用状态
+ng-model 指令可以为应用数据提供状态值(invalid, dirty, touched, error)
+eg:
+<form ng-app="" name="myForm" ng-init="myText = 'test@runoob.com'">
+ 
+Email:
+<input type="email" name="myAddress" ng-model="myText" required>
+<p>编辑邮箱地址，查看状态的改变。</p>
+<h1>状态</h1>
+<p>Valid: {{myForm.myAddress.$valid}} (如果输入的值是合法的则为 true)。</p>
+<p>Dirty: {{myForm.myAddress.$dirty}} (如果值改变则为 true)。</p>
+<p>Touched: {{myForm.myAddress.$touched}} (如果通过触屏点击则为 true)。</p>
+4、css类
+eg:
+<style>
+input.ng-invalid {
+    background-color: lightblue;
+}
+</style>
+<form ng-app="" name="myForm">
+    输入你的名字:
+    <input name="myAddress" ng-model="text" required>
+</form>
