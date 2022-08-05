@@ -1,0 +1,32 @@
+一、组件
+每个vue应用都是通过createApp函数创建的，传递给createApp的选项用于配置根组件。当挂载应用时，该组件被用作渲染的起点。
+一个应用需要被挂载到一个dom元素中。
+eg:
+const RootComponent = {...}
+const app = Vue.createApp(RootComponent);
+const vm = app.mount("#app");
+注册一个全局组件：
+const app = Vue.createApp({...})
+app.component("custom-component", {
+    ...
+})
+调用：<custom-component></custom-component>
+
+二、计算属性
+eg:
+var vm = new Vue({
+    el:"#app",
+    data: {
+        name: "A",
+    },
+    computed: {
+        site: {
+            get: function() {
+                return this.name;
+            },
+            set: function(name) {
+                this.name = name;
+            }
+        }
+    }
+})

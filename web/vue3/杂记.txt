@@ -1,0 +1,41 @@
+setup()函数
+组件中用到的数据、方法等等，都要配置在setup中。
+在beforeCreate之前执行一次，this是undefined。
+eg:
+beforeCreate() {
+    console.log("beforeCreate");
+}
+setup() {
+    console.log("setup", this);
+}
+输出结果：
+setup undefined
+beforeCreate
+
+参数
+1、props，接受的数据被包装成一个代理对象，能够实现响应式。
+eg:
+<Demo msg="hello" name="A"></Demo>
+props: ["msg", "name"]
+setup(props) {
+    console.log(props);
+}
+输出结果：
+Proxy { msg: "hello", name: "A"}
+2、context：上下文对象
+（1）attrs
+组件外部传递过来，但没有在props配置中声明的属性。
+父子通信过程中，父组件把数据传递过来，如果子组件没有用props进行接受，就会出现在attrs中。
+（2）emit：分发自定义事件的函数
+eg:
+父组件：
+<Demo @hello="sayHello"></Demo>
+子组件：
+emit: ["hello"],
+context.emit("hello", 666)
+3、slots：收到的插槽内容
+v-slot
+
+definedComponent: 把接受的object直接返回。就类型而言，返回的值有一个合成类型的构造函数，用于手动渲染函数、TSX和IDE工具支持。
+
+reactive函数：提供实现响应式数据的方法。
