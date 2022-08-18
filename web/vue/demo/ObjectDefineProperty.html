@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <header>
-
-    </header>
+    <head>
+        <meta charset='utf-8' />
+        <title>Object可观测性</title>
+    </head>
     <body>
-
+        <script>
+            let car = {};
+            let price = 3000;
+            Object.defineProperty(car, "price", {
+                enumerable: true,
+                configurable: true,
+                get() {
+                    console.log("price属性被读取了");
+                    return price;
+                },
+                set(value) {
+                    console.log("price属性被修改了");
+                    price = value;
+                }
+            })
+            console.log(car.price);
+            car.price = 5000;
+        </script>
     </body>
 </html>
