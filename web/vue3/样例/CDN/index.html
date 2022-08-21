@@ -19,12 +19,18 @@
 </head>
 
 <body>
-    <div id="hello-vue" class="demo">{{ message }}</div>
+    <div id="hello-vue" class="demo">
+        <div>{{ message }}</div>
+        <div>
+            <button @click="count++">Count is: {{ count }}</button>
+        </div>
+    </div>
     <script>
         const HelloVueApp = {
             data() {
                 return {
-                    message: "测试描述"
+                    message: "测试描述",
+                    count: 0
                 }
             }
         };
