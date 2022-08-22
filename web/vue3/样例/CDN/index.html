@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Vue3</title>
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
     <style>
         .demo {
             border: 1px solid #eee;
@@ -24,17 +25,80 @@
         <div>
             <button @click="count++">Count is: {{ count }}</button>
         </div>
+        <div>
+            <todo-item :todo="todo"></todo-item>
+        </div>
+        <div>
+            <save-button></save-button>
+        </div>
+        <div class="static" :class="{active: isActive, 'text-danger': hasError}"></div>
+        <div :class="classObj"></div>
+        <div :class="[activeClass, errorClass]"></div>
+        <div :class="[isActive ? activeClass : ''], errorClass"></div>
+        <div :class="[{active: isActive}, errorClass]"></div>
+        <div :style="{color: activeColor, fontSize: fontSize + 'px'}">内联样式</div>
+        <div :style="styleObj">内敛对象样式</div>
+        <div :style="[baseStyle, overrideStyle]"></div>
+        <button @click="one($event), two($event)">submit</button>
     </div>
     <script>
         const HelloVueApp = {
             data() {
                 return {
                     message: "测试描述",
-                    count: 0
+                    count: 0,
+                    todo: {
+                        text: "todo"
+                    },
+                    isActive: true,
+                    hasError: true,
+                    classObj: {
+                        active: true,
+                        "text-dangaer": false
+                    },
+                    activeClass: "active",
+                    errorClass: "text-danger",
+                    activeColor: "red",
+                    fontSize: 30,
+                    styleObj: {
+                        color: "red",
+                        fontSize: "14px"
+                    },
+                    baseStyle: {},
+                    overrideStyle: {}
+                }
+            },
+            methods: {
+                one() {
+                    console.log("one");
+                },
+                two() {
+                    console.log("two");
                 }
             }
         };
-        Vue.createApp(HelloVueApp).mount("#hello-vue");
+        const app = Vue.createApp(HelloVueApp)
+        app.component("todo-item", {
+            props: ["todo"],
+            template: `<li>{{todo.text}}</li>`
+        })
+        app.component("save-button", {
+            created() {
+                this.debouncedClick = _.debounce(this.click, 500);
+            },
+            unmounted() {
+                this.debouncedClick.cancel();
+            },
+            methods: {
+                click() {
+                    console.log("save-button click...");
+                }
+            },
+            template: `
+                <button @click="debouncedClick">Save</button>
+            `
+        })
+        app.mount("#hello-vue");
     </script>
 </body>
 
