@@ -1,3 +1,5 @@
+第一部分：基础
+
 一、组件
 每个vue应用都是通过createApp函数创建的，传递给createApp的选项用于配置根组件。当挂载应用时，该组件被用作渲染的起点。
 一个应用需要被挂载到一个dom元素中。
@@ -129,3 +131,75 @@ methods: {
     addOne() {}
 }
 
+七、表单输入绑定
+v-model
+<input v-model="value">
+修饰符
+.lazy
+默认情况下，v-model会在input事件后更新数据；加lazy之后为每次change事件之后更新数据。
+<input v-model.lazy="value">
+.number
+用户输入自动转化为数字。
+.trim
+默认去除输入内容两端的空格。
+
+八、生命周期
+Renderer => setup(Composition API) => beforeCreate => init Options API => created => beforeMount => initial render create & insert DOM nodes =>  Mounted (伴随 beforeUpdate => updates) => beforeUnmount => Unmounted
+
+九、侦听器
+默认情况下，用户创建的侦听器回调，都会在vue组件更新之前被调用。
+watch: {
+    variable(newValue, oldValue) {
+        // ...
+    },
+    object: {
+        handler(newValue, oldValue) {
+            // ...
+        },
+        deep: true,
+        immediate: true
+    },
+    "obj.name" () {
+        // ...
+    }
+}
+如果想在侦听器回调中能访问被Vue更新之后的DOM，你需要指明flush: 'post'
+
+可以通过组件实例$watch()来命令式创建侦听器
+export default {
+    created() {
+        this.$watch("variable", (newValue) => {
+            /// ...
+        })
+    }
+}
+停止侦听器
+const unwatch = this.$watch("foo", callback);
+
+// ...当该侦听器不再需要时
+unwatch();
+
+十、模板引用
+ref
+this.$refs.
+
+十一、组件基础
+结构：
+            Root
+_____________|____________
+|            |           |
+Header      Main        Aside
+             |           |
+             |           |
+            Article     Item
+
+.vue 单文件组件（简称SFC）
+子父组件通信：
+父组件：传递props
+子组件：$emit()
+动态组件：<component :is="currentTab"></component>
+可以通过<KeepAlive></KeepAlive>组件强制被切换掉的组件仍然保存存活状态。
+
+
+第二部分：深入组件
+一、注册
