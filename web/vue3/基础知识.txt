@@ -203,3 +203,20 @@ Header      Main        Aside
 
 第二部分：深入组件
 一、注册
+全局注册与局部注册
+1、全局注册
+import {createApp} from 'vue'
+const app = createApp({})
+app.component("ComponentName", {
+    // 组件的实现
+})
+
+import ComponentName from "./App.vue"
+app.component("ComponentName", ComponentName)
+
+app.component()可以被链式调用
+app.component('ComponentA', ComponentA).component('ComponentB', ComponentB).component('ComponentC', ComponentC)
+
+2、局部注册
+
+
