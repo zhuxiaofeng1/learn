@@ -2,10 +2,19 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div>
-      <OptionAPI></OptionAPI>
+      <OptionAPI />
     </div>
     <div>
-      <CompositionAPI></CompositionAPI>
+      <CompositionAPI />
+    </div>
+    <div>
+      <VueCompositionOne />
+    </div>
+    <div>
+      <VueCompositionTwo />
+    </div>
+    <div>
+      <Transtion />
     </div>
     <!-- <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -39,13 +48,22 @@
 <script>
 import OptionAPI from "@/components/OptionAPI.vue";
 import CompositionAPI from "@/components/CompositionAPI.vue";
+import VueCompositionOne from "@/components/VueCompositionOne.vue";
+import VueCompositionTwo from "@/components/VueCompositionTwo.vue";
+import Transtion from "@/components/Transtion.vue";
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
+    msg: String,
   },
-  components: { OptionAPI, CompositionAPI }
-}
+  components: {
+    OptionAPI,
+    CompositionAPI,
+    VueCompositionOne,
+    VueCompositionTwo,
+    Transtion,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
